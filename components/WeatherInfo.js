@@ -1,7 +1,7 @@
 export default function WeatherInfo(temp, city, date, icon, desc) {
   return (
     <div className="p-28 h-full w-full flex flex-col">
-      <div className="text-xl tracking-wider">
+      <div className="text-2xl tracking-wider">
         <h1>the.weather</h1>
       </div>
       <div className="flex items-center space-x-10 justify-between flex-grow pt-64">
