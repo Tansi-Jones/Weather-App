@@ -37,6 +37,10 @@ export default function Home() {
     openData();
   }, [city]);
 
+  const handleSearch = function (search) {
+    setCity(search);
+  };
+
   return (
     <>
       <MetaHead />
@@ -53,6 +57,7 @@ export default function Home() {
             // date={}
             icon={weatherDetails.icon}
             desc={weatherDetails.desc}
+            sideSearch={handleSearch}
           />
         </section>
         {/* right wing */}
@@ -62,6 +67,7 @@ export default function Home() {
             humidity={weatherDetails.humid}
             wind={weatherDetails.windSpeed}
             feels={weatherDetails.feel}
+            mainSearch={handleSearch}
             // bookmark={}
           />
         </section>

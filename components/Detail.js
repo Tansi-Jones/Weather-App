@@ -1,19 +1,34 @@
+import { useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import Bookmark from "./Bookmark";
 
-export default function Detail({ cloud, humidity, wind, feels, bookmark }) {
+export default function Detail({
+  cloud,
+  humidity,
+  wind,
+  feels,
+  bookmark,
+  mainSearch,
+}) {
+  const [input, setInput] = useState("");
+
   return (
     <>
       <div className=" backdrop-filter backdrop-blur-3xl pl-20 h-screen">
         <div className="flex justify-between">
           <input
             type="text"
-            name=""
+            name="search"
+            onChange={(event) => setInput(event.target.value)}
+            value={input}
             id=""
             placeholder="Another location"
             className="bg-transparent outline-none text-white placeholder-white text-2xl font-thin pt-20 border-b pb-3 border-gray-600 w-80"
           />
-          <button className="bg-gray-600 px-12 text-4xl text-gray-900">
+          <button
+            className="bg-gray-600 px-12 text-4xl text-gray-900"
+            onClick={() => mainSearch(input)}
+          >
             <RiSearchLine />
           </button>
         </div>

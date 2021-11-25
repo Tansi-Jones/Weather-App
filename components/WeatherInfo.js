@@ -1,6 +1,13 @@
 import Sidebar from "./SideBar";
 
-export default function WeatherInfo({ temperature, city, date, icon, desc }) {
+export default function WeatherInfo({
+  temperature,
+  city,
+  date,
+  icon,
+  desc,
+  sideSearch,
+}) {
   return (
     <>
       <div className="relative p-10 md:p-28 h-screen w-screen md:h-full md:w-full flex flex-col">
@@ -9,7 +16,7 @@ export default function WeatherInfo({ temperature, city, date, icon, desc }) {
         </div>
         {/* sidebar */}
         <div className="block lg:hidden">
-          <Sidebar />
+          <Sidebar minSearch={sideSearch} />
         </div>
         <div className="flex flex-col xl:flex-row items-center md:space-x-10 justify-between md:flex-grow pt-40 md:pt-64">
           <div>
