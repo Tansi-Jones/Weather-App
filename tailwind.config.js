@@ -3,7 +3,14 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        outfit: ["Outfit", "sans-serif"],
+      },
+      gridTemplateColumns: {
+        2: "repeat(1, 1fr 600px )",
+      },
+    },
   },
   variants: {
     extend: {},
