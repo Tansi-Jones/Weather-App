@@ -1,7 +1,7 @@
 import { RiSearchLine } from "react-icons/ri";
 import Bookmark from "./Bookmark";
 
-export default function Detail({ cloud, humidity, wind, rain, bookmark }) {
+export default function Detail({ cloud, humidity, wind, feels, bookmark }) {
   return (
     <>
       <div className=" backdrop-filter backdrop-blur-3xl pl-20 h-screen">
@@ -25,19 +25,21 @@ export default function Detail({ cloud, humidity, wind, rain, bookmark }) {
           </h1>
           <div className="flex items-center justify-between pt-10 text-xl tracking-wider text-gray-400">
             <p className="">Cloud</p>
-            <p className="text-white">12%</p>
+            <p className="text-white">{cloud}%</p>
           </div>
           <div className="flex items-center justify-between pt-10 text-xl tracking-wider text-gray-400">
             <p className="">Humidity</p>
-            <p className="text-white">78%</p>
+            <p className="text-white">{humidity}%</p>
           </div>
           <div className="flex items-center justify-between pt-10 text-xl tracking-wider text-gray-400">
             <p className="">Wind</p>
-            <p className="text-white">1Km/h</p>
+            <p className="text-white">{wind}Km/h</p>
           </div>
           <div className="flex items-center justify-between pt-10 text-xl tracking-wider text-gray-400">
-            <p className="">Rain</p>
-            <p className="text-white">0mm</p>
+            <p className="">Feels Like</p>
+            <p className="text-white">
+              {feels} <sup>o</sup>
+            </p>
           </div>
         </div>
 

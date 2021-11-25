@@ -4,28 +4,65 @@ import MetaHead from "../components/MetaHead";
 import WeatherInfo from "../components/WeatherInfo";
 
 export default function Home() {
-  const [] = useState();
+  const [API, setAPI] = useState("a38b34b95d89cba81c270becc66f79d2");
+  const [city, setCity] = useState("girne");
+  const [weatherDetails, setWeatherDetails] = useState({
+    temp: "",
+    humid: "",
+    cityName: "",
+    clouds: "",
+    windSpeed: "",
+    desc: "",
+    icon: "",
+    feel: "",
+  });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    async function openData() {
+      const weatherData = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}&units=metric`
+      ).then((res) => res.json());
+
+      setWeatherDetails({
+        temp: weatherData.main.temp,
+        humid: weatherData.main.humidity,
+        cityName: weatherData.name,
+        clouds: weatherData.clouds.all,
+        windSpeed: weatherData.wind.speed,
+        desc: weatherData.weather[0].description,
+        icon: weatherData.weather[0].icon,
+        feel: weatherData.main.feels_like,
+      });
+    }
+    openData();
+  }, [city]);
 
   return (
     <>
       <MetaHead />
 
       <main
-        className=" bg-no-repeat bg-fill bg-center text-white grid grid-cols-1 xl:grid-cols-2 font-outfit"
-        style={{ backgroundImage: `url('/img/${"13n.jpg"}')` }}
+        className=" bg-no-repeat bg-cover bg-center text-white grid grid-cols-1 xl:grid-cols-2 font-outfit"
+        style={{ backgroundImage: `url('/img/${weatherDetails.icon}.jpg')` }}
       >
         {/* left wing */}
         <section className="relative">
           <WeatherInfo
-          // temp={} city={} date={} icon={} desc={}
+            temperature={weatherDetails.temp}
+            city={weatherDetails.cityName}
+            // date={}
+            icon={weatherDetails.icon}
+            desc={weatherDetails.desc}
           />
         </section>
         {/* right wing */}
         <section className="hidden lg:block">
           <Detail
-          // cloud={} humidity={} wind={} rain={} bookmark={}
+            cloud={weatherDetails.clouds}
+            humidity={weatherDetails.humid}
+            wind={weatherDetails.windSpeed}
+            feels={weatherDetails.feel}
+            // bookmark={}
           />
         </section>
       </main>
