@@ -48,6 +48,45 @@ export default function Home() {
     openData();
   }, [city]);
 
+  useEffect(() => {
+    window.addEventListener("load", () => {
+      let long;
+      let lat;
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          long = position.coords.longitude;
+          lat = position.coords.latitude;
+
+          geoData(lat, long);
+        });
+      }
+    });
+
+    async function geoData(lat, long) {
+      const weatherData = await fetch(
+        `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API}`
+      ).then((res) => res.json());
+
+      setWeatherDetails({
+        temp: weatherData.main.temp,
+        humid: weatherData.main.humidity,
+        cityName: weatherData.name,
+        clouds: weatherData.clouds.all,
+        windSpeed: weatherData.wind.speed,
+        desc: weatherData.weather[0].description,
+        icon: weatherData.weather[0].icon,
+        feel: weatherData.main.feels_like,
+      });
+      setBookmarks({
+        temp: weatherData.main.temp,
+        cityName: weatherData.name,
+        icon: weatherData.weather[0].icon,
+      });
+    }
+    geoData();
+  }, []);
+
   const handleSearch = function (search) {
     setCity(search);
   };
@@ -63,7 +102,7 @@ export default function Home() {
       <MetaHead />
 
       <main
-        className=" bg-no-repeat bg-cover bg-center text-white grid grid-cols-1 xl:grid-cols-2 font-outfit"
+        className="overflow-hidden bg-no-repeat bg-cover bg-center text-white grid grid-cols-1 xl:grid-cols-2 font-outfit"
         style={{ backgroundImage: `url('/img/${weatherDetails.icon}.jpg')` }}
       >
         {/* left wing */}
@@ -71,7 +110,6 @@ export default function Home() {
           <WeatherInfo
             temperature={weatherDetails.temp}
             city={weatherDetails.cityName}
-            // date={}
             icon={weatherDetails.icon}
             desc={weatherDetails.desc}
             sideSearch={handleSearch}

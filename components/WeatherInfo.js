@@ -26,11 +26,11 @@ export default function WeatherInfo({
           </div>
           <div className="flex items-center justify-center space-x-16">
             <div className="space-y-3 pt-6">
-              <h1 className="text-5xl md:text-6xl font-regular capitalize">
+              <h1 className="text-5xl md:text-6xl font-regular capitalize text-center">
                 {city}
               </h1>
-              <p className="text-md tracking-wider">
-                <span>10:36</span> - <span>Tuesday, 22 Oct `19</span>
+              <p className="text-md tracking-wider font-thin">
+                Powered by remeek &trade;
               </p>
             </div>
             <div className=" md:-mt-14">

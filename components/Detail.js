@@ -15,8 +15,8 @@ export default function Detail({
 
   return (
     <>
-      <div className=" backdrop-filter backdrop-blur-3xl pl-20 h-screen">
-        <div className="flex justify-between">
+      <div className=" backdrop-filter backdrop-blur-3xl pt-3 md:pt-0 pl-10 md:pl-20 h-screen">
+        <div className="hidden xl:flex justify-between">
           <input
             type="text"
             name="search"
@@ -41,7 +41,7 @@ export default function Detail({
         </button>
 
         {/* Weather details */}
-        <div className="my-10 pb-10 mr-20 border-b border-gray-600">
+        <div className="my-10 pb-10 mr-10 md:mr-20 border-b border-gray-600">
           <h1 className="capitalize tracking-wider text-xl ">
             weather details
           </h1>
