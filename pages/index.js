@@ -6,8 +6,6 @@ import WeatherInfo from "../components/WeatherInfo";
 export default function Home() {
   const [API, setAPI] = useState("a38b34b95d89cba81c270becc66f79d2");
   const [city, setCity] = useState("oslo");
-  const [long, setLong] = useState("");
-  const [lat, setLat] = useState("");
   const [weatherDetails, setWeatherDetails] = useState({
     temp: "",
     humid: "",
@@ -24,40 +22,6 @@ export default function Home() {
     icon: "",
   });
   const [bookmarked, setBookmarked] = useState([]);
-
-  useEffect(() => {
-    window.addEventListener("load", () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          setLong(position.coords.longitude);
-          setLat(position.coords.latitude);
-        });
-      }
-    });
-
-    async function geoData() {
-      const weatherData = await fetch(
-        `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API}`
-      ).then((res) => res.json());
-
-      setWeatherDetails({
-        temp: weatherData.main.temp,
-        humid: weatherData.main.humidity,
-        cityName: weatherData.name,
-        clouds: weatherData.clouds.all,
-        windSpeed: weatherData.wind.speed,
-        desc: weatherData.weather[0].description,
-        icon: weatherData.weather[0].icon,
-        feel: weatherData.main.feels_like,
-      });
-      setBookmarks({
-        temp: weatherData.main.temp,
-        cityName: weatherData.name,
-        icon: weatherData.weather[0].icon,
-      });
-    }
-    geoData();
-  }, []);
 
   useEffect(() => {
     async function openData() {
