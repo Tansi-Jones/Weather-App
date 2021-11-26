@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RiSearchLine } from "react-icons/ri";
+import { RiSearchLine, RiBookmarkFill } from "react-icons/ri";
 import Bookmark from "./Bookmark";
 
 export default function Detail({
@@ -8,6 +8,7 @@ export default function Detail({
   wind,
   feels,
   bookmark,
+  setMark,
   mainSearch,
 }) {
   const [input, setInput] = useState("");
@@ -32,9 +33,15 @@ export default function Detail({
             <RiSearchLine />
           </button>
         </div>
+        <button
+          className="flex items-center space-x-5 p-2 bg-gray-600 rounded-sm mt-10 font-thin tracking-wider transform active:scale-95 hover:scale-100 transition duration-200 ease-in-out"
+          onClick={() => setMark()}
+        >
+          <RiBookmarkFill /> Bookmark
+        </button>
 
         {/* Weather details */}
-        <div className="my-16 pb-10 mr-20 border-b border-gray-600">
+        <div className="my-10 pb-10 mr-20 border-b border-gray-600">
           <h1 className="capitalize tracking-wider text-xl ">
             weather details
           </h1>
@@ -63,11 +70,10 @@ export default function Detail({
           <h1 className="capitalize tracking-wider text-xl ">
             Weather Bookmarks
           </h1>
-          <div className="flex items-center justify-between pt-10 text-xl tracking-wider text-gray-400 space-x-3">
-            <Bookmark />
-            <Bookmark />
-            <Bookmark />
-            <Bookmark />
+          <div className="flex items-center justify-self-start pt-10 text-xl tracking-wider text-gray-400 space-x-3">
+            {bookmark.map(({ temp, icon, cityName }, index) => (
+              <Bookmark key={index} temp={temp} city={cityName} icon={icon} />
+            ))}
           </div>
         </div>
       </div>

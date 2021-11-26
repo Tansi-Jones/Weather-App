@@ -7,7 +7,7 @@ export default function Home() {
   const [API, setAPI] = useState("a38b34b95d89cba81c270becc66f79d2");
   const [city, setCity] = useState("girne");
   const [weatherDetails, setWeatherDetails] = useState({
-    temp: "",
+    temp: "25",
     humid: "",
     cityName: "",
     clouds: "",
@@ -16,6 +16,12 @@ export default function Home() {
     icon: "",
     feel: "",
   });
+  const [bookmarks, setBookmarks] = useState({
+    temp: "",
+    city: "",
+    icon: "",
+  });
+  const [bookmarked, setBookmarked] = useState([]);
 
   useEffect(() => {
     async function openData() {
@@ -33,12 +39,23 @@ export default function Home() {
         icon: weatherData.weather[0].icon,
         feel: weatherData.main.feels_like,
       });
+      setBookmarks({
+        temp: weatherData.main.temp,
+        cityName: weatherData.name,
+        icon: weatherData.weather[0].icon,
+      });
     }
     openData();
   }, [city]);
 
   const handleSearch = function (search) {
     setCity(search);
+  };
+
+  const handleBookmark = function () {
+    setBookmarked((prev) => {
+      return [...prev, bookmarks];
+    });
   };
 
   return (
@@ -61,14 +78,15 @@ export default function Home() {
           />
         </section>
         {/* right wing */}
-        <section className="hidden lg:block">
+        <section className="block">
           <Detail
             cloud={weatherDetails.clouds}
             humidity={weatherDetails.humid}
             wind={weatherDetails.windSpeed}
             feels={weatherDetails.feel}
             mainSearch={handleSearch}
-            // bookmark={}
+            setMark={handleBookmark}
+            bookmark={bookmarked}
           />
         </section>
       </main>
