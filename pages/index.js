@@ -26,31 +26,6 @@ export default function Home() {
   const [bookmarked, setBookmarked] = useState([]);
 
   useEffect(() => {
-    async function openData() {
-      const weatherData = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}&units=metric`
-      ).then((res) => res.json());
-
-      setWeatherDetails({
-        temp: weatherData.main.temp,
-        humid: weatherData.main.humidity,
-        cityName: weatherData.name,
-        clouds: weatherData.clouds.all,
-        windSpeed: weatherData.wind.speed,
-        desc: weatherData.weather[0].description,
-        icon: weatherData.weather[0].icon,
-        feel: weatherData.main.feels_like,
-      });
-      setBookmarks({
-        temp: weatherData.main.temp,
-        cityName: weatherData.name,
-        icon: weatherData.weather[0].icon,
-      });
-    }
-    openData();
-  }, [city]);
-
-  useEffect(() => {
     window.addEventListener("load", () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -83,6 +58,31 @@ export default function Home() {
     }
     geoData();
   }, []);
+
+  useEffect(() => {
+    async function openData() {
+      const weatherData = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}&units=metric`
+      ).then((res) => res.json());
+
+      setWeatherDetails({
+        temp: weatherData.main.temp,
+        humid: weatherData.main.humidity,
+        cityName: weatherData.name,
+        clouds: weatherData.clouds.all,
+        windSpeed: weatherData.wind.speed,
+        desc: weatherData.weather[0].description,
+        icon: weatherData.weather[0].icon,
+        feel: weatherData.main.feels_like,
+      });
+      setBookmarks({
+        temp: weatherData.main.temp,
+        cityName: weatherData.name,
+        icon: weatherData.weather[0].icon,
+      });
+    }
+    openData();
+  }, [city]);
 
   const handleSearch = function (search) {
     setCity(search);
