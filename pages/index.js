@@ -5,9 +5,9 @@ import WeatherInfo from "../components/WeatherInfo";
 
 export default function Home() {
   const [API, setAPI] = useState("a38b34b95d89cba81c270becc66f79d2");
-  const [city, setCity] = useState("girne");
+  const [city, setCity] = useState("oslo");
   const [weatherDetails, setWeatherDetails] = useState({
-    temp: "25",
+    temp: "",
     humid: "",
     cityName: "",
     clouds: "",
