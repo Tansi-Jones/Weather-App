@@ -6,6 +6,8 @@ import WeatherInfo from "../components/WeatherInfo";
 export default function Home() {
   const [API, setAPI] = useState("a38b34b95d89cba81c270becc66f79d2");
   const [city, setCity] = useState("oslo");
+  const [long, setLong] = useState("");
+  const [lat, setLat] = useState("");
   const [weatherDetails, setWeatherDetails] = useState({
     temp: "",
     humid: "",
@@ -50,20 +52,15 @@ export default function Home() {
 
   useEffect(() => {
     window.addEventListener("load", () => {
-      let long;
-      let lat;
-
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          long = position.coords.longitude;
-          lat = position.coords.latitude;
-
-          geoData(lat, long);
+          setLong(position.coords.longitude);
+          setLat(position.coords.latitude);
         });
       }
     });
 
-    async function geoData(lat, long) {
+    async function geoData() {
       const weatherData = await fetch(
         `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API}`
       ).then((res) => res.json());
